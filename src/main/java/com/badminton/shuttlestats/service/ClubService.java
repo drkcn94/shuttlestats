@@ -26,6 +26,13 @@ public class ClubService {
         return clubRepository.findById(clubId);
     }
 
+    public Club saveClub(Club clubDetails) {
+        validateClub(clubDetails);
+
+        Club toSave = new Club(clubDetails.getClubName(), clubDetails.getCreationDate(), clubDetails.getPublicVisibility());
+        return clubRepository.save(toSave);
+    }
+
     public void deleteClub(UUID clubId) {
         Optional<Club> optionalClub = clubRepository.findById(clubId);
         if(optionalClub.isPresent()) {
@@ -34,6 +41,10 @@ public class ClubService {
         else {
             throw new NoSuchElementException("Club not found with ID: " + clubId);
         }
+    }
+
+    public void validateClub(Club club) {
+
     }
 
 }
