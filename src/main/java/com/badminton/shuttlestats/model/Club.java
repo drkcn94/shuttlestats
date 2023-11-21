@@ -23,13 +23,17 @@ public class Club {
     @Column(name = "public_visibility")
     private Boolean publicVisibility;
 
+    @Column(name = "description")
+    private String clubDescription;
+
     public Club() {}
 
-    public Club(String clubName, LocalDate creationDate, Boolean publicVisibility) {
+    public Club(String clubName, LocalDate creationDate, Boolean publicVisibility, String clubDescription) {
         this.clubId = UUID.randomUUID();
         this.clubName = clubName;
         this.creationDate = creationDate;
         this.publicVisibility = publicVisibility;
+        this.clubDescription = clubDescription;
     }
 
     public UUID getClubId() {
@@ -62,5 +66,13 @@ public class Club {
 
     public void setPublicVisibility(Boolean publicVisibility) {
         this.publicVisibility = publicVisibility;
+    }
+
+    public String getClubDescription() {
+        return clubDescription;
+    }
+
+    public void setClubDescription(String clubDescription) {
+        this.clubDescription = clubDescription;
     }
 }

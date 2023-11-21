@@ -29,7 +29,7 @@ public class ClubService {
     public Club saveClub(Club clubDetails) {
         validateClub(clubDetails);
 
-        Club toSave = new Club(clubDetails.getClubName(), clubDetails.getCreationDate(), clubDetails.getPublicVisibility());
+        Club toSave = new Club(clubDetails.getClubName(), clubDetails.getCreationDate(), clubDetails.getPublicVisibility(), clubDetails.getClubDescription());
         return clubRepository.save(toSave);
     }
 
