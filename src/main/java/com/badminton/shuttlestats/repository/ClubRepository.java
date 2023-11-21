@@ -10,6 +10,6 @@ import java.util.UUID;
 public interface ClubRepository extends JpaRepository<Club, UUID> {
 
     List<Club> findAll();
-
     Optional<Club> findById(UUID clubId);
+    void deleteById(UUID uuid);
 }

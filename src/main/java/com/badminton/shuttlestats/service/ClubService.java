@@ -5,6 +5,7 @@ import com.badminton.shuttlestats.repository.ClubRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +24,16 @@ public class ClubService {
 
     public Optional<Club> getClubById(UUID clubId) {
         return clubRepository.findById(clubId);
+    }
+
+    public void deleteClub(UUID clubId) {
+        Optional<Club> optionalClub = clubRepository.findById(clubId);
+        if(optionalClub.isPresent()) {
+            clubRepository.deleteById(clubId);
+        }
+        else {
+            throw new NoSuchElementException("Club not found with ID: " + clubId);
+        }
     }
 
 }
