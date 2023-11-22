@@ -28,10 +28,10 @@ public class Club {
 
     public Club() {}
 
-    public Club(String clubName, LocalDate creationDate, Boolean publicVisibility, String clubDescription) {
+    public Club(String clubName, Boolean publicVisibility, String clubDescription) {
         this.clubId = UUID.randomUUID();
         this.clubName = clubName;
-        this.creationDate = creationDate;
+        this.creationDate = LocalDate.now();
         this.publicVisibility = publicVisibility;
         this.clubDescription = clubDescription;
     }

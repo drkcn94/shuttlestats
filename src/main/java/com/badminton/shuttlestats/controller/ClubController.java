@@ -44,5 +44,25 @@ public class ClubController {
         }
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Club> updateClub(@RequestBody Club club) {
+        try {
+            Club updatedClub = clubService.updateClub(club);
+            return new ResponseEntity<>(updatedClub, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/delete={clubId}")
+    public ResponseEntity<Void> deleteClub(@PathVariable UUID clubId) {
+        try {
+            clubService.deleteClub(clubId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }
