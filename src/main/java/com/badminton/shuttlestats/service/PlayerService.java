@@ -23,14 +23,14 @@ public class PlayerService {
         return playerRepository.findAll();
     }
 
-    public Optional<Player> getPlayerById(UUID uuid) {
+    public Optional<Player> getPlayerById(String uuid) {
         return playerRepository.findById(uuid);
     }
 
     public Player savePlayer(Player playerDetails) {
         validatePlayer(playerDetails);
 
-        Player toSave = new Player(playerDetails.getName(), playerDetails.getGender(), playerDetails.getMainHand());
+        Player toSave = new Player(playerDetails.getFirstName(), playerDetails.getLastName(), playerDetails.getGender(), playerDetails.getMainHand());
         return playerRepository.save(toSave);
     }
 
@@ -48,15 +48,16 @@ public class PlayerService {
 
         Player existingPlayer = optionalPlayer.get();
 
-        existingPlayer.setName(playerDetails.getName());
+        existingPlayer.setFirstName(playerDetails.getFirstName());
+        existingPlayer.setLastName(playerDetails.getLastName());
         existingPlayer.setGender(playerDetails.getGender());
         existingPlayer.setMainHand(playerDetails.getMainHand());
 
         return playerRepository.save(existingPlayer);
     }
 
-    public void deletePlayer(UUID playerId) {
-        Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+    public void deletePlayer(String playerId) {
+        Optional<Player> optionalPlayer = playerRepository.findById(UUID.fromString(playerId));
         if(optionalPlayer.isPresent()) {
             playerRepository.deleteById(playerId);
         }
@@ -70,7 +71,8 @@ public class PlayerService {
             throw new IllegalArgumentException();
         }
 
-        if(player.getName().matches(".*[=()/\\\\{}\\[\\]&*:!?].*")) {
+        if(player.getFirstName().matches(".*[=()/\\\\{}\\[\\]&*:!?].*") ||
+        player.getLastName().matches(".*[=()/\\\\{}\\[\\]&*:!?].*")) {
             throw new IllegalArgumentException("Illegal character found in name");
         }
 

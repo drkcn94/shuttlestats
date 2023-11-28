@@ -26,7 +26,7 @@ public class PlayerController {
     }
 
     @GetMapping("/{playerId}")
-    public ResponseEntity<Player> getPlayer(@PathVariable UUID playerId)
+    public ResponseEntity<Player> getPlayer(@PathVariable String playerId)
     {
         Optional<Player> playerOptional = playerService.getPlayerById(playerId);
 
@@ -57,7 +57,7 @@ public class PlayerController {
     @DeleteMapping("/delete={playerId}")
     public ResponseEntity<Void> deletePlayer(@PathVariable String playerId) {
         try {
-            playerService.deletePlayer(UUID.fromString(playerId));
+            playerService.deletePlayer(playerId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
